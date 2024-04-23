@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Tournament extends Model
+class Team extends Model
 {
     use HasFactory;
     use SoftDeletes;
     protected $guarded = [];
     protected array $dates = ['deleted_at'];
-    public function teams():belongsToMany
+    public function tournaments():belongsToMany
     {
-        return $this->belongsToMany(Team::class, 'tournaments_has_teams');
+        return $this->belongsToMany(Tournament::class, 'tournaments_has_teams');
     }
 }

@@ -21,7 +21,11 @@ class tournamentsController extends Controller
     {
         return view('tournaments.create');
     }
-
+    public function teams(Tournament $tournament)
+    {
+        $teams = $tournament->teams;
+        return view('teams.index', compact('tournament', 'teams'));
+    }
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
 
@@ -37,36 +41,38 @@ class tournamentsController extends Controller
 
 
         $Tournament = Tournament::create($tournament);
-        return redirect()->route('tournaments.index', $Tournament);
+        return redirect()->route('tournaments.show', $Tournament);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Tournament $tournament)
     {
-        //
+        return view('tournaments.show', compact('tournament'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Tournament $tournament)
     {
-        //
+        return view('tournaments.edit',compact('tournament'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Tournament $tournament)
     {
-        //
+        $data = $request->all();
+        if ($image = $request->file('image')) {
+            if ($tournament->image) {
+                Storage::delete('public/images/tournaments/' . $tournament->image);
+            }
+
+            $pathSaveImage = 'public/images/tournaments';
+            $image_name = time() . '_' . $image->getClientOriginalName();
+            $image->storeAs($pathSaveImage, $image_name);
+            $data['image'] = $image_name;
+        } elseif (!isset($tournament->image)) {
+            $data['image'] = $tournament->image;
+        }
+        $tournament->update($data);
+        return redirect()->route('tournaments.show',$tournament);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Tournament $tournament)
     {
         $tournament->delete();

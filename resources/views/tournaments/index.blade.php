@@ -20,7 +20,7 @@
                                 <div class="bg-gray-800 p-8">
                                     <a href="{{ route('tournaments.show',$tournament) }}" class="text-center" style="display: inline-block; inline-size: 100%; block-size: 100%;">
                                         <span class="text-blue-500 font-bold hover:text-white" >{{ $tournament->name }}</span>
-                                        <img id="image" src="{{ asset('/storage/images/tournaments').'/'.$tournament->image }}" alt="Image 1" class="w-full h-auto rounded-lg" style="display: inline-block; inline-size: 100%; block-size: 100%;">
+                                        <img id="image" src="{{ asset('/storage/images/tournaments').'/'.$tournament->image }}" alt="Image tournament" class="w-full h-auto rounded-lg" style="display: inline-block; inline-size: 100%; block-size: 100%;">
                                     </a>
                                 </div>
                             @endforeach

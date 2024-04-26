@@ -6,6 +6,7 @@
 
         <div class="mb-4 p-0">
             <a href="{{ route('tournaments.index') }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Tournament </a>
+
         </div>
     </x-slot>
 

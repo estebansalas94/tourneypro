@@ -55,7 +55,7 @@ return new class extends Migration {
             $table->integer('dorsal')->nullable();
             $table->string('position', 30);
             $table->text('image')->nullable();
-            $table->dateTime('birth_date_at');
+            $table->date('birth_date_at');
             $table->string('nationality', 40);
             $table->foreignId('team_id')->constrained('teams');
             $table->softDeletes();

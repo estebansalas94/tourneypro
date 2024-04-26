@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use App\Models\Tournament;
+use App\Models\Template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class teamsController extends Controller
 {
@@ -14,11 +16,27 @@ class teamsController extends Controller
         $teams = Team::orderBy('id', 'desc')->paginate(22);
         return view('teams.index', compact('teams'));
     }
-
-
     public function create()
     {
         return view('teams.create');
+    }
+
+    public function templates(Request $request, Team $team)
+    {
+        $templates = $team->templates;
+
+        $ages = [];
+
+        foreach ($templates as $template) {
+            $birthdate = $template->birth_date_at;
+            $age = Carbon::parse($birthdate)->age;
+            $ages[] = $age;
+        }
+
+
+
+
+        return view('teams.template', compact('team','templates','ages'));
     }
 
     public function store(Request $request)

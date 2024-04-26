@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
 use Illuminate\Http\Request;
 use App\Models\Tournament;
 use Illuminate\Support\Facades\Storage;
@@ -21,11 +22,13 @@ class tournamentsController extends Controller
     {
         return view('tournaments.create');
     }
-    public function teams(Tournament $tournament)
+    public function teams(Request $request, Tournament $tournament)
     {
         $teams = $tournament->teams;
-        return view('teams.index', compact('tournament', 'teams'));
+        return view('tournaments.teams', compact('tournament', 'teams'));
     }
+
+
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
 
@@ -38,9 +41,8 @@ class tournamentsController extends Controller
 
             $tournament['image'] = $image_name;
         }
-
-
         $Tournament = Tournament::create($tournament);
+
         return redirect()->route('tournaments.show', $Tournament);
     }
 
@@ -77,5 +79,17 @@ class tournamentsController extends Controller
     {
         $tournament->delete();
         return redirect()->route('tournaments.index');
+    }
+
+    public function selectTeams(Tournament $tournament)
+    {
+        $teams = Team::all(); // Obtener todos los equipos disponibles
+        return view('tournaments.selectTeams', compact('tournament', 'teams'));
+    }
+
+    public function storeSelectedTeams(Request $request, Tournament $tournament)
+    {
+        $tournament->teams()->sync($request->team_ids);
+        return redirect()->route('tournaments.show', $tournament->id);
     }
 }

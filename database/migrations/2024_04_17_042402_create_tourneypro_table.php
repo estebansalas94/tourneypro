@@ -30,6 +30,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name', 40);
             $table->string('last_name', 40);
+            $table->string('referee_type', 35);
             $table->string('nationality', 40);
             $table->string('description')->nullable();
             $table->text('image');
@@ -54,7 +55,7 @@ return new class extends Migration {
             $table->integer('dorsal')->nullable();
             $table->string('position', 30);
             $table->text('image')->nullable();
-            $table->dateTime('birth_date_at');
+            $table->date('birth_date_at');
             $table->string('nationality', 40);
             $table->foreignId('team_id')->constrained('teams');
             $table->softDeletes();
@@ -104,19 +105,35 @@ return new class extends Migration {
 
         Schema::create('matches_has_referees', function (Blueprint $table) {
             $table->id();
-            $table->string('referee_type', 35);
+            $table->foreignId('match_id')
+                ->nullable()
+                ->constrained('matches')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
 
-            $table->foreignId('stadium_id')->constrained('templates');
-            $table->foreignId('match_id')->constrained('matches');
-            $table->foreignId('tournament_id')->constrained('tournaments');
+            $table->foreignId('referee_id')
+                ->nullable()
+                ->constrained('referees')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
             $table->softDeletes();
             $table->timestamps();
         });
 
         Schema::create('tournaments_has_teams', function (Blueprint $table){
             $table->id();
-            $table->foreignId('tournament_id')->constrained('tournaments');
-            $table->foreignId('team_id')->constrained('teams');
+            $table->foreignId('tournament_id')
+                ->nullable()
+                ->constrained('tournaments')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
+            $table->foreignId('team_id')
+                ->nullable()
+                ->constrained('teams')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -129,7 +146,7 @@ return new class extends Migration {
         Schema::dropIfExists('goals');
         Schema::dropIfExists('cards');
         Schema::dropIfExists('matches');
-        Schema::dropIfExists('players');
+        Schema::dropIfExists('templates');
         Schema::dropIfExists('teams');
 
 

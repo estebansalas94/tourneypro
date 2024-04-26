@@ -1,12 +1,11 @@
 <x-app-layout class="dark">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-200 dark:text-gray-800 leading-tight">
-            {{ __('Create Tournament') }}
+            {{ __('Edit teams') }}
         </h2>
 
         <div class="mb-4 p-0">
-            <a href="{{ route('tournaments.index') }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Tournament </a>
-
+            <a href="{{ route('teams.index') }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Team </a>
         </div>
     </x-slot>
 
@@ -14,21 +13,23 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form action="{{ route('tournaments.store') }}" method="POST" enctype="multipart/form-data" class="bg-white dark:bg-gray-800 px-8 pt-6 pb-8 mb-4">
+                    <form action="{{ route('teams.update', $team->id) }}" method="POST" enctype="multipart/form-data" class="bg-white dark:bg-gray-800 px-8 pt-6 pb-8 mb-4">
                         @csrf
+                        @method('PUT')
 
                         <div class="mb-4">
-                            <div class="grid grid-flow-row sm:grid-flow-col gap-3">
-                                <div class="sm:col-span-4 justify-center">
-                                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="nya"> Name Tournament </label>
-                                    <input name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline" id="nya" type="text" placeholder="UEFA Champions League" required>
-                                </div>
-                            </div>
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="nya"> Team Name </label>
+                            <input name="name" value="{{ old('name', $team->name) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline" id="nya" type="text" placeholder="" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="nya"> Coach Name </label>
+                            <input name="coach_name" value="{{ old('name', $team->coach_name) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline" id="nya" type="text" placeholder="" required>
                         </div>
 
                         <div class="mb-4">
                             <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="mensaje"> Descriptión </label>
-                            <textarea name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="mensaje" rows="5" placeholder="Description tournament"></textarea>
+                            <textarea name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="mensaje" rows="5" placeholder="">{{ old('description',$team->description) }}</textarea>
                         </div>
 
 
@@ -43,13 +44,21 @@
 
                                         <p id="filename" class='text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider'>Upload image</p>
                                     </div>
-                                    <input name="image" id="image" type='file' class="hidden" />
+                                    <input name="shield" id="shield" type='file' class="hidden" />
 
                                 </label>
                             </div>
-                            <!-- Para ver la imagen seleccionada-->
-                            <div id="imagePreview" class="mt-2" >
-                                <div id="imagenSeleccionada" class="bg-gray-200 dark:bg-gray-800 h-32 rounded-lg flex items-center justify-center text-gray-500">No image preview</div>
+                            <!-- Para ver la imagen previa-->
+                            <div id="imagePreview" class="mt-2">
+                                @if($team->shield)
+                                    <div id="imagenSeleccionada" class="bg-gray-200 dark:bg-gray-800 h-32 rounded-lg flex items-center justify-center text-gray-500">
+                                        <img src="{{ Storage::url('images/teams/' . $team->shield) }}" alt="Tournament Image" class="h-full rounded-lg">
+                                    </div>
+                                @else
+                                    <div id="imagenSeleccionada" class="bg-gray-200 h-32 rounded-lg flex items-center justify-center text-gray-500">
+                                        No image available
+                                    </div>
+                                @endif
                             </div>
                         </div>
 
@@ -68,7 +77,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     $(document).ready(function (e) {
-        const uploadInput = $('#image');
+        const uploadInput = $('#shield');
         const filenameLabel = $('#filename');
         const imagePreview = $('#imagenSeleccionada');
 

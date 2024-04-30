@@ -33,7 +33,7 @@ return new class extends Migration {
             $table->string('referee_type', 35);
             $table->string('nationality', 40);
             $table->string('description')->nullable();
-            $table->text('image');
+            $table->text('image')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -52,7 +52,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name', 30);
             $table->string('last_name', 45);
-            $table->integer('dorsal')->nullable();
+            $table->integer('dorsal');
             $table->string('position', 30);
             $table->text('image')->nullable();
             $table->date('birth_date_at');
@@ -78,6 +78,7 @@ return new class extends Migration {
 
             $table->softDeletes();
             $table->timestamps();
+
         });
 
         Schema::create('cards', function (Blueprint $table) {

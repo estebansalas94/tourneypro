@@ -1,11 +1,11 @@
 <x-app-layout class="dark">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-200 dark:text-gray-800 leading-tight">
-            {{ __('Create Template') }}
+            {{ __('Create Referees') }}
         </h2>
 
         <div class="mb-4 p-0">
-            <a href="{{ route('teams.template', $team_id) }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Team </a>
+            <a href="{{ route('referees.index') }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Referees </a>
         </div>
     </x-slot>
 
@@ -13,53 +13,35 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form action="{{ route('templates.store') }}" method="POST" enctype="multipart/form-data" class="bg-white dark:bg-gray-800 px-8 pt-6 pb-8 mb-4">
+                    <form action="{{ route('referees.store') }}" method="POST" enctype="multipart/form-data" class="bg-white dark:bg-gray-800 px-8 pt-6 pb-8 mb-4">
                         @csrf
-
-
 
                         <div class="flex flex-wrap">
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="nya"> Name</label>
-                                <input name="name" class="block uppercase tracking-wide appearance-none block w-full shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="nya" type="text" placeholder="" required>
+                                <input name="name" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="nya" type="text" placeholder="" required>
                             </div>
 
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" for="cn"> Last Name </label>
-                                <input name="last_name" class="block uppercase tracking-wide appearance-none block w-full shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="cn" type="text" placeholder="" required>
+                                <input name="last_name" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="cn" type="text" placeholder="" required>
                             </div>
-                            <div class="w-full md:w-1/4 px-3">
-                                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" for="dor"> Dorsal </label>
-                                <input name="dorsal" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline" id="dor" type="number" placeholder="" required>
-                            </div>
-                            <div class="w-full md:w-1/4 px-3">
-                                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" for="cn"> Position </label>
-                                <select name="position" class="block uppercase tracking-wide appearance-none block w-full shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline">
-                                    <option>CD</option>
-                                    <option>SD</option>
-                                    <option>EXI</option>
-                                    <option>EXD</option>
-                                    <option>MDD</option>
-                                    <option>MDI</option>
-                                    <option>MO</option>
-                                    <option>MC</option>
-                                    <option>MCD</option>
-                                    <option>LI</option>
-                                    <option>LD</option>
-                                    <option>DEC</option>
-                                    <option>PO</option>
+                           
+                            <div class="w-full md:w-1/2 px-3">
+                                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" for="cn"> Referee Type </label>
+                                <select name="referee_type" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" required>
+                                    <option>main referee</option>
+                                    <option>assistant referee</option>
+                                    <option>fourth referee</option>
                                 </select>
                             </div>
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" for="dor"> Nationality </label>
                                 <input name="nationality" class="block uppercase tracking-wide shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline" id="dor" type="text" placeholder="" required>
                             </div>
-                            <div class="w-full md:w-1/8 px-3">
-                                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" for="dt"> Birthdate </label>
-                                <input name="birth_date_at" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline" id="dt" type="date" placeholder=" Birthdate">
-                            </div>
-                            <div class="w-full md:w-1/8 px-3">
-                                <input name="team_id" value="{{ $team_id }}" type="hidden" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline">
+                            <div class="w-full  px-3">
+                                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" for="dt"> Description </label>
+                                <textarea name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline"></textarea>
                             </div>
                         </div>
 
@@ -86,7 +68,7 @@
 
                         <div class="flex items-center justify-between">
                             <button class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit"> Save </button>
-                            <a href="{{ route('teams.template', $team_id) }}" class="bg-red-500 hover:bg-red-700 active:bg-red-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancel</a>
+                            <a href="{{ route('referees.index') }}" class="bg-red-500 hover:bg-red-700 active:bg-red-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancel</a>
                         </div>
                     </form>
                 </div>

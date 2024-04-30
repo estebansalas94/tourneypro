@@ -30,7 +30,7 @@ class templatesController extends Controller
 
         if ($image = $request->file('image'))
         {
-            $pathSaveImage = 'public\images\templates';
+            $pathSaveImage = 'public/images/templates';
             $image_name =  $image->getClientOriginalName().".". $image->getClientOriginalExtension();
             $image->storeAs($pathSaveImage, $image_name);
             $templateData['image'] = $image_name;

@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class tournamentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+   
     public function index()
     {
         $tournaments = Tournament::orderBy('id', 'desc')->paginate(6);
@@ -83,13 +81,13 @@ class tournamentsController extends Controller
 
     public function selectTeams(Tournament $tournament)
     {
-        $teams = Team::all(); // Obtener todos los equipos disponibles
+        $teams = Team::all();
         return view('tournaments.selectTeams', compact('tournament', 'teams'));
     }
 
     public function storeSelectedTeams(Request $request, Tournament $tournament)
     {
         $tournament->teams()->sync($request->team_ids);
-        return redirect()->route('tournaments.show', $tournament->id);
+        return redirect()->route('tournaments.teams', $tournament->id);
     }
 }

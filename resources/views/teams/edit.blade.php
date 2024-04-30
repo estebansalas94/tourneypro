@@ -52,7 +52,7 @@
                             <div id="imagePreview" class="mt-2">
                                 @if($team->shield)
                                     <div id="imagenSeleccionada" class="bg-gray-200 dark:bg-gray-800 h-32 rounded-lg flex items-center justify-center text-gray-500">
-                                        <img src="{{ Storage::url('images/teams/' . $team->shield) }}" alt="Tournament Image" class="h-full rounded-lg">
+                                        <img src="{{ Storage::url('images/teams/' . $team->shield) }}" alt="Team Image" class="h-full rounded-lg">
                                     </div>
                                 @else
                                     <div id="imagenSeleccionada" class="bg-gray-200 h-32 rounded-lg flex items-center justify-center text-gray-500">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\refereesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\tournamentsController;
 use App\Http\Controllers\teamsController;
@@ -29,8 +30,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('teams/{team}/templates', [teamsController::class, 'templates'])->name('teams.template');
     Route::get('teams/{team}/templates/created', [templatesController::class, 'created'])->name('templates.created');
 
-
     Route::resource('templates', templatesController::class);
+
+    Route::resource('referees', refereesController::class);
 
 
 });

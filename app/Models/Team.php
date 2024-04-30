@@ -6,15 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Tournament extends Model
+class Team extends Model
 {
     use HasFactory;
     use SoftDeletes;
     protected $guarded = [];
     protected array $dates = ['deleted_at'];
-    public function teams():belongsToMany
+
+    public function tournaments():belongsToMany
     {
-        return $this->belongsToMany(Team::class, 'tournaments_has_teams','tournament_id','team_id',);
+        return $this->belongsToMany(Tournament::class, 'tournaments_has_teams');
+    }
+
+    public function templates():HasMany
+    {
+        return $this->hasMany(Template::class);
     }
 }

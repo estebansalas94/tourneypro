@@ -19,7 +19,7 @@
                             <div class="bg-gray-800 p-8 flex flex-col items-center">
                                 <a href="{{ route('teams.show',$team) }}" class="text-center" style="display: inline-block; inline-size: 100%; block-size: 100%;">
                                     <span class="text-white block mb-2 font-bold">{{ $team->name }}</span>
-                                    <img id="image" src="{{ asset('/storage/images/teams').'/'.$team->shield }}" alt="Image 1" class="rounded-full h-50 w-50 object-cover" style="display: inline-block;">
+                                    <img id="image" src="{{ asset('/storage/images/teams').'/'.$team->shield }}" alt="Shield image" class="rounded-full h-50 w-50 object-cover" style="display: inline-block;">
                                 </a>
                             </div>
                         @endforeach

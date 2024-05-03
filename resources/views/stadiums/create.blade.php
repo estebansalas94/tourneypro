@@ -1,12 +1,11 @@
 <x-app-layout class="dark">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-200 dark:text-gray-800 leading-tight">
-            {{ __('Create Tournament') }}
+            {{ __('Create Template') }}
         </h2>
 
         <div class="mb-4 p-0">
-            <a href="{{ route('tournaments.index') }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Tournament </a>
-
+            <a href="{{ route('teams.stadium', $team_id) }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Stadiums </a>
         </div>
     </x-slot>
 
@@ -14,26 +13,33 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form action="{{ route('tournaments.store') }}" method="POST" enctype="multipart/form-data" class="bg-white dark:bg-gray-800 px-8 pt-6 pb-8 mb-4">
+                    <form action="{{ route('stadiums.store') }}" method="POST" enctype="multipart/form-data" class="bg-white dark:bg-gray-800 px-8 pt-6 pb-8 mb-4">
                         @csrf
 
-                        <div class="mb-4">
-                            <div class="grid grid-flow-row sm:grid-flow-col gap-3">
-                                <div class="sm:col-span-4 justify-center">
-                                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="nya"> Name Tournament </label>
-                                    <input name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline" id="nya" type="text" placeholder="UEFA Champions League" required>
-                                </div>
+                        <div class="flex flex-wrap">
+                            <div class="w-full px-3">
+                                <label class="text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" for="nya"> Name</label>
+                                <input name="name" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="nya" type="text" placeholder="" required>
+                            </div>
+                            <div class="w-full md:w-1/2 px-3">
+                                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" for="dor"> Location </label>
+                                <input name="location" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline" id="dor" type="text" placeholder="" required>
+                            </div>
+                            <div class="w-full md:w-1/2 px-3">
+                                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" for="dor"> Capacity </label>
+                                <input name="capacity" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline" id="dor" type="number" placeholder="" required>
+                            </div>
+                            <div class="w-full px-3">
+                                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" for="mensaje"> Descriptión </label>
+                                <textarea name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="mensaje" rows="5" placeholder=""></textarea>
+                            </div>
+                            <div class="w-full md:w-1/8 px-3">
+                                <input name="team_id" value="{{ $team_id }}" type="hidden" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline">
                             </div>
                         </div>
 
-                        <div class="mb-4">
-                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="mensaje"> Descriptión </label>
-                            <textarea name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="mensaje" rows="5" placeholder="Description tournament"></textarea>
-                        </div>
-
-
-                        <div class="mb-4">
-                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Upload image</label>
+                        <div class="w-full px-3">
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4">Upload image</label>
 
                             <div class='flex items-center justify-center w-full'>
                                 <label class='flex flex-col border-gray-900 border-4 border-dashed w-full h-32 hover:bg-gray-900 hover:border-purple-300 group'>
@@ -55,7 +61,7 @@
 
                         <div class="flex items-center justify-between">
                             <button class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit"> Save </button>
-                            <a href="{{ route('tournaments.index') }}" class="bg-red-500 hover:bg-red-700 active:bg-red-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancel</a>
+                            <a href="{{ route('teams.stadium', $team_id) }}" class="bg-red-500 hover:bg-red-700 active:bg-red-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancel</a>
                         </div>
                     </form>
                 </div>
@@ -90,3 +96,5 @@
         });
     });
 </script>
+
+

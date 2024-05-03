@@ -1,12 +1,11 @@
 <x-app-layout class="dark">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-200 dark:text-gray-800 leading-tight">
-            {{ __('Create Tournament') }}
+            {{ __('Edit tournament') }}
         </h2>
 
         <div class="mb-4 p-0">
             <a href="{{ route('tournaments.index') }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Tournament </a>
-
         </div>
     </x-slot>
 
@@ -14,21 +13,21 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form action="{{ route('tournaments.store') }}" method="POST" enctype="multipart/form-data" class="bg-white dark:bg-gray-800 px-8 pt-6 pb-8 mb-4">
+                    <form action="{{ route('tournaments.update', $tournament->id) }}" method="POST" enctype="multipart/form-data" class="bg-white dark:bg-gray-800 px-8 pt-6 pb-8 mb-4">
                         @csrf
-
+                        @method('PUT')
                         <div class="mb-4">
                             <div class="grid grid-flow-row sm:grid-flow-col gap-3">
                                 <div class="sm:col-span-4 justify-center">
                                     <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="nya"> Name Tournament </label>
-                                    <input name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline" id="nya" type="text" placeholder="UEFA Champions League" required>
+                                    <input name="name" value="{{ old('name', $tournament->name) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline" id="nya" type="text" placeholder="UEFA Champions League" required>
                                 </div>
                             </div>
                         </div>
 
                         <div class="mb-4">
                             <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="mensaje"> Descriptión </label>
-                            <textarea name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="mensaje" rows="5" placeholder="Description tournament"></textarea>
+                            <textarea name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="mensaje" rows="5" placeholder="Description tournament">{{ old('description',$tournament->description) }}</textarea>
                         </div>
 
 
@@ -47,9 +46,17 @@
 
                                 </label>
                             </div>
-                            <!-- Para ver la imagen seleccionada-->
-                            <div id="imagePreview" class="mt-2" >
-                                <div id="imagenSeleccionada" class="bg-gray-200 dark:bg-gray-800 h-32 rounded-lg flex items-center justify-center text-gray-500">No image preview</div>
+                            <!-- Para ver la imagen previa-->
+                            <div id="imagePreview" class="mt-2">
+                                @if($tournament->image)
+                                    <div id="imagenSeleccionada" class="bg-gray-200 dark:bg-gray-800 h-32 rounded-lg flex items-center justify-center text-gray-500">
+                                        <img src="{{ Storage::url('images/tournaments/' . $tournament->image) }}" alt="Tournament Image" class="h-full rounded-lg">
+                                    </div>
+                                @else
+                                    <div id="imagenSeleccionada" class="bg-gray-200 h-32 rounded-lg flex items-center justify-center text-gray-500">
+                                        No image available
+                                    </div>
+                                @endif
                             </div>
                         </div>
 

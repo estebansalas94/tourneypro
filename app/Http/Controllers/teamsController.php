@@ -32,11 +32,13 @@ class teamsController extends Controller
             $age = Carbon::parse($birthdate)->age;
             $ages[] = $age;
         }
-
-
-
-
         return view('teams.template', compact('team','templates','ages'));
+    }
+
+    public function stadiums(Request $request, Team $team)
+    {
+        $stadiums = $team->stadiums;
+        return view('teams.stadium', compact('team','stadiums'));
     }
 
     public function store(Request $request)
@@ -74,7 +76,7 @@ class teamsController extends Controller
             }
 
             $pathSaveImage = 'public/images/teams';
-            $image_name = time() . '_' . $shield->getClientOriginalName();
+            $image_name = $shield->getClientOriginalName() . '.' . $shield->getClientOriginalExtension();
             $shield->storeAs($pathSaveImage, $image_name);
             $data['shield'] = $image_name;
         } elseif (!isset($team->shield)) {

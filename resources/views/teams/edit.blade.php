@@ -5,7 +5,7 @@
         </h2>
 
         <div class="mb-4 p-0">
-            <a href="{{ route('teams.index') }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Team </a>
+            <a href="{{ route('teams.show', $team) }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Team </a>
         </div>
     </x-slot>
 
@@ -64,7 +64,7 @@
 
                         <div class="flex items-center justify-between">
                             <button class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit"> Save </button>
-                            <a href="{{ route('tournaments.index') }}" class="bg-red-500 hover:bg-red-700 active:bg-red-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancel</a>
+                            <a href="{{ route('teams.show', $team) }}" class="bg-red-500 hover:bg-red-700 active:bg-red-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancel</a>
                         </div>
                     </form>
                 </div>

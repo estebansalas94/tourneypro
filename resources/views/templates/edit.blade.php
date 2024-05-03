@@ -5,7 +5,7 @@
         </h2>
 
         <div class="mb-4 p-0">
-            <a href="#" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Teams </a>
+            <a href="{{ route('teams.template', ['team' => $template->team_id]) }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Teams </a>
         </div>
     </x-slot>
 

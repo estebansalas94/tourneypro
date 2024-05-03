@@ -63,7 +63,7 @@ class tournamentsController extends Controller
             }
 
             $pathSaveImage = 'public/images/tournaments';
-            $image_name = time() . '_' . $image->getClientOriginalName();
+            $image_name = $image->getClientOriginalName() . '_' . $image->getClientOriginalExtension();
             $image->storeAs($pathSaveImage, $image_name);
             $data['image'] = $image_name;
         } elseif (!isset($tournament->image)) {

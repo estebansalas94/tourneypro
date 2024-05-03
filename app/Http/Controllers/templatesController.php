@@ -47,9 +47,7 @@ class templatesController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit(Template $template)
     {
         return view('templates.edit', compact('template'));
@@ -64,7 +62,7 @@ class templatesController extends Controller
             }
 
             $pathSaveImage = 'public\images\templates';
-            $image_name = time() . '_' . $image->getClientOriginalName();
+            $image_name = $image->getClientOriginalName() . '.' . $image->getClientOriginalExtension();
             $image->storeAs($pathSaveImage, $image_name);
             $data['image'] = $image_name;
         } elseif (!isset($template->image)) {

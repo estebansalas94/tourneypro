@@ -17,15 +17,6 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('stadiums', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 50);
-            $table->string('location', 60);
-            $table->integer('capacity')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
-        });
-
         Schema::create('referees', function (Blueprint $table) {
             $table->id();
             $table->string('name', 40);
@@ -44,6 +35,17 @@ return new class extends Migration {
             $table->text('shield')->nullable();
             $table->text('description')->nullable();
             $table->string('coach_name');
+            $table->softDeletes();
+            $table->timestamps();
+        });
+
+        Schema::create('stadiums', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 50);
+            $table->string('location', 60);
+            $table->integer('capacity')->nullable();
+            $table->text('image')->nullable();
+            $table->foreignId('team_id')->constrained('teams');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -148,12 +150,12 @@ return new class extends Migration {
         Schema::dropIfExists('cards');
         Schema::dropIfExists('matches');
         Schema::dropIfExists('templates');
-        Schema::dropIfExists('teams');
-
-
-
-        Schema::dropIfExists('referees');
         Schema::dropIfExists('stadiums');
+        
+
+
+        Schema::dropIfExists('teams');
+        Schema::dropIfExists('referees');
         Schema::dropIfExists('tournaments');
 
     }

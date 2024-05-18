@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TeamRequest;
 use App\Models\Team;
 use App\Models\Tournament;
-use App\Models\Template;
+use App\Models\Stadium;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
@@ -37,11 +38,11 @@ class teamsController extends Controller
 
     public function stadiums(Request $request, Team $team)
     {
-        $stadiums = $team->stadiums;
-        return view('teams.stadium', compact('team','stadiums'));
+        $stadium = $team->stadium;
+        return view('teams.stadium', compact('team','stadium'));
     }
 
-    public function store(Request $request)
+    public function store(TeamRequest $request)
     {
         $team = $request->all();
         if ($shield = $request->file('shield'))

@@ -8,12 +8,8 @@
                 add_box
             </a>
             <a href="{{ route('referees.index') }}" class="material-symbols-outlined cursor-pointer bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-4 px-4 rounded focus:outline-none focus:shadow-outline absolute top-0 right-8 mr-1 mt-32">sports</a>
-
-
         </div>
-        
     </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">

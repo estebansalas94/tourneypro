@@ -3,12 +3,10 @@
         <h2 class="font-semibold text-xl text-gray-200 dark:text-gray-800 leading-tight">
             {{ __('Edit tournament') }}
         </h2>
-
         <div class="mb-4 p-0">
             <a href="{{ route('tournaments.index') }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Tournament </a>
         </div>
     </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -16,34 +14,28 @@
                     <form action="{{ route('tournaments.update', $tournament->id) }}" method="POST" enctype="multipart/form-data" class="bg-white dark:bg-gray-800 px-8 pt-6 pb-8 mb-4">
                         @csrf
                         @method('PUT')
+
                         <div class="mb-4">
                             <div class="grid grid-flow-row sm:grid-flow-col gap-3">
                                 <div class="sm:col-span-4 justify-center">
-                                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="nya"> Name Tournament </label>
+                                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="nya"> Tournament Name <span class="text-red-500">*</span></label>
                                     <input name="name" value="{{ old('name', $tournament->name) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline" id="nya" type="text" placeholder="UEFA Champions League" required>
                                 </div>
                             </div>
                         </div>
-
                         <div class="mb-4">
-                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="mensaje"> Descriptión </label>
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="mensaje"> Descriptión <span class="text-red-500">*</span></label>
                             <textarea name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="mensaje" rows="5" placeholder="Description tournament">{{ old('description',$tournament->description) }}</textarea>
                         </div>
-
-
                         <div class="mb-4">
-                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Upload image</label>
-
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Upload image <span class="text-red-500">*</span></label>
                             <div class='flex items-center justify-center w-full'>
                                 <label class='flex flex-col border-gray-900 border-4 border-dashed w-full h-32 hover:bg-gray-900 hover:border-purple-300 group'>
                                     <div class='flex flex-col items-center justify-center pt-7'>
-
                                         <svg class="w-10 h-10 text-purple-400 group-hover:text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-
                                         <p id="filename" class='text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider'>Upload image</p>
                                     </div>
-                                    <input name="image" id="image" type='file' class="hidden" />
-
+                                    <input name="image" value="{{ old('image', $tournament->image) }}" id="image" type='file' class="hidden" />
                                 </label>
                             </div>
                             <!-- Para ver la imagen previa-->
@@ -59,7 +51,6 @@
                                 @endif
                             </div>
                         </div>
-
                         <div class="flex items-center justify-between">
                             <button class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit"> Save </button>
                             <a href="{{ route('tournaments.index') }}" class="bg-red-500 hover:bg-red-700 active:bg-red-200 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancel</a>

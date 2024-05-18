@@ -15,7 +15,11 @@ class Stadium extends Model
     protected array $dates = ['deleted_at'];
 
     public function team()
+{
+    return $this->belongsTo(Team::class);
+}
+    public function matches()
     {
-        return $this->belongsTo(Team::class);
+        return $this->hasMany(Game::class);
     }
 }

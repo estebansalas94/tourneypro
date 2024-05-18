@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RefereeRequest;
 use App\Models\Referee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -22,7 +23,7 @@ class refereesController extends Controller
     }
 
     
-    public function store(Request $request)
+    public function store(RefereeRequest $request)
     {
         $refereeData = $request->all();
         if ($image = $request->file('image'))
@@ -50,7 +51,7 @@ class refereesController extends Controller
     }
 
     
-    public function update(Request $request, Referee $referee)
+    public function update(RefereeRequest $request, Referee $referee)
     {
         $refereeData = $request->all();
         if ($image = $request->file('image'))

@@ -137,6 +137,8 @@ return new class extends Migration {
                 ->constrained('teams')
                 ->cascadeOnUpdate()
                 ->nullOnDelete();
+            
+            $table->unique(['tournament_id', 'team_id']);
             $table->softDeletes();
             $table->timestamps();
         });

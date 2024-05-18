@@ -9,7 +9,7 @@
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ $tournament->name }}   <a href="{{ route('tournaments.edit', $tournament) }}" class="material-symbols-outlined p-2 text-blue-400 transform hover:scale-110">border_color</a></h2>
         <div class="mb-4 p-0">
             <a href="{{ route('tournaments.teams', $tournament->id) }}" class="material-symbols-outlined cursor-pointer bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute top-12 right-8 mr-1 mt-44">groups</a>
-            <a href="{{ route('tournaments.teams', $tournament->id) }}" class="material-symbols-outlined cursor-pointer bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute top-12 right-12 mr-14 mt-44">sports_esports</a>
+            <a href="{{ route('tournaments.matches', $tournament->id) }}" class="material-symbols-outlined cursor-pointer bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute top-12 right-12 mr-14 mt-44">sports_esports</a>
         </div>
     </x-slot>
     <div class="py-12">
@@ -21,7 +21,6 @@
             </div>
         </div>
     </div>
-
     <div class="py-12 pt-0">
         <div class="max-w-7x1 mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">

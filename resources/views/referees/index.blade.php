@@ -3,17 +3,12 @@
 <x-app-layout>
     <x-slot name="header">
         <img src="{{  asset('storage/img/arbitro.png') }}" alt="Perfil image" width="10%" class="rounded-full" style="display: block; margin: 0 auto;">
-        
         <div class="mb-0 p-0">
             <a href="{{ route('referees.create') }}" class="material-symbols-outlined cursor-pointer text-blue-500 text-4xl hover:text-white">
                 add_box
             </a>
         </div>
     </x-slot>
-    
-
-   
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -48,7 +43,7 @@
                         @foreach ($referees as $referee)
                             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 <td class="px-4 py-4 ">
-                                    <img src="{{  asset('storage/images/referees').'/'.$referee->image }}" alt="Perfil image" width="20%" class="rounded-full">
+                                    <img src="{{  asset('storage/images/referees').'/'.$referee->image }}" alt="Perfil image" width="20%" class="w-14 h-14 object-cover rounded-full">
                                 </td>
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <a href="#">{{ $referee->name }}</a>

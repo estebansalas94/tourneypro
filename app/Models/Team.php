@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -25,8 +26,13 @@ class Team extends Model
         return $this->hasMany(Template::class);
     }
 
-    public function stadiums():HasMany
+    public function stadium()
     {
-        return $this->hasMany(Stadium::class);
+        return $this->hasOne(Stadium::class);
+    }
+
+    public function matches()
+    {
+        return $this->belongsTo(Game::class);
     }
 }

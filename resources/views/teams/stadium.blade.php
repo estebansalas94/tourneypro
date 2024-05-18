@@ -1,4 +1,3 @@
-
 <x-app-layout>
     <x-slot name="header">
         <a href="{{ route('teams.index') }}" class="material-symbols-outlined cursor-pointer text-white text-2xl active:text-white transform hover:scale-110 absolute top-12 left-2 ml-5 mt-5">Home</a>
@@ -31,40 +30,54 @@
                                 Capacity
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                Descriptión
+                            </th>
+                            <th scope="col" class="px-6 py-3">
 
                             </th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($stadiums as $stadium)
                             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 <td class="px-4 py-4 ">
-                                    <img src="{{  asset('/storage/images/stadiums').'/'.$stadium->image }}"alt="Stadium image" width="20%" class="rounded-full">
+                                    @if(isset($stadium) && $stadium)
+                                        <img src="{{  asset('/storage/images/stadiums').'/'.$stadium->image }}" alt="Stadium image" width="20%" class="rounded-full">
+                                    @endif
                                 </td>
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <a href="#">{{ $stadium->name }}</a>
+                                    @if(isset($stadium) && $stadium)
+                                        <a href="#">{{ $stadium->name }}</a>
+                                    @endif
                                 </th>
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $stadium->location }}
+                                    @if(isset($stadium) && $stadium)
+                                        {{ $stadium->location }}
+                                    @endif
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{  $stadium->capacity }}
+                                    @if(isset($stadium) && $stadium)
+                                        {{  $stadium->capacity }}
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4">
+                                    @if(isset($stadium) && $stadium)
+                                        {{  $stadium->description }}
+                                    @endif
                                 </td>
                                 <td class="px-3 py-2">
-                                    <a href="{{ route('stadiums.edit', $stadium) }}" class="material-symbols-outlined cursor-pointer text-blue-600 font-bold hover:scale-110 text-2xl active:text-white  rounded focus:outline-none focus:shadow-outline">Edit</a>
-                                    <button type="button" onclick="confirmarDelete({{ $stadium->id }})" class=" material-symbols-outlined cursor-pointer font-bold text-red-700 text-2xl active:text-white transform hover:scale-110 rounded focus:outline-none focus:shadow-outline">
-                                        Delete</button>
+                                    @if(isset($stadium) && $stadium)
+                                        <a href="{{ route('stadiums.edit', $stadium) }}" class="material-symbols-outlined cursor-pointer text-blue-600 font-bold hover:scale-110 text-2xl active:text-white  rounded focus:outline-none focus:shadow-outline">Edit</a>
+                                        <button type="button" onclick="confirmarDelete({{ $stadium->id }})" class=" material-symbols-outlined cursor-pointer font-bold text-red-700 text-2xl active:text-white transform hover:scale-110 rounded focus:outline-none focus:shadow-outline">
+                                            Delete</button>
+                                    @endif
                                 </td>
                             </tr>
-                        @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-
-
 </x-app-layout>
 
 <!--script de confirmar delete con alertifyjs-->
@@ -74,7 +87,7 @@
             if(e){
                 let form = document.createElement('form')
                 form.method = 'POST'
-                form.action = `/stadiums/${id}`
+                form.action = `/stadium/${id}`
                 form.insertAdjacentHTML('beforeend', `
                 @csrf
                 @method('DELETE')

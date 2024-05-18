@@ -18,13 +18,13 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('tournaments.index')" :active="request()->routeIs('tournaments.index')">
+                    <x-nav-link :href="route('tournaments.index')" :active="request()->routeIs('tournaments.*')">
                         {{ __('Tournaments') }}
                     </x-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('teams.index')" :active="request()->routeIs('teams.index')">
+                    <x-nav-link :href="route('teams.index')" :active="request()->routeIs('teams.*')">
                         {{ __('Teams') }}
                     </x-nav-link>
                 </div>

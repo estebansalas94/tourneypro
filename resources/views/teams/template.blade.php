@@ -1,4 +1,3 @@
-
 <x-app-layout>
     <x-slot name="header">
         <a href="{{ route('teams.index') }}" class="material-symbols-outlined cursor-pointer text-white text-2xl active:text-white transform hover:scale-110 absolute top-12 left-2 ml-5 mt-5">Home</a>
@@ -48,7 +47,7 @@
                         @foreach ($templates as $template)
                             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 <td class="px-4 py-4 ">
-                                    <img src="{{  asset('/storage/images/templates').'/'.$template->image }}"alt="Perfil image" width="20%" class="rounded-full">
+                                    <img src="{{  asset('/storage/images/templates').'/'.$template->image }}"alt="Perfil image" width="20%" class="w-14 h-14 object-cover rounded-full">
                                 </td>
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <a href="#">{{ $template->name }}</a>

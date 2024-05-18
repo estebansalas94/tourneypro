@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TournamentRequest;
+use App\Models\Stadium;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use App\Models\Tournament;
@@ -27,7 +29,7 @@ class tournamentsController extends Controller
     }
 
 
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(TournamentRequest $request)
     {
 
         $tournament = $request->all();
@@ -54,7 +56,7 @@ class tournamentsController extends Controller
         return view('tournaments.edit',compact('tournament'));
     }
 
-    public function update(Request $request, Tournament $tournament)
+    public function update(TournamentRequest $request, Tournament $tournament)
     {
         $data = $request->all();
         if ($image = $request->file('image')) {
@@ -79,15 +81,39 @@ class tournamentsController extends Controller
         return redirect()->route('tournaments.index');
     }
 
-    public function selectTeams(Tournament $tournament)
+    public function selectTeams(Tournament $tournament, Request $request)
     {
-        $teams = Team::all();
+       
+        $assignedTeamIds = $tournament->teams->pluck('id')->toArray();
+        $query = $request->input('search');
+        $teams = Team::whereNotIn('id', $assignedTeamIds)
+        ->when($query, function ($queryBuilder) use ($query) {
+            $queryBuilder->where('name', 'LIKE', "%{$query}%");
+        })->get();
+        
         return view('tournaments.selectTeams', compact('tournament', 'teams'));
     }
 
     public function storeSelectedTeams(Request $request, Tournament $tournament)
     {
-        $tournament->teams()->sync($request->team_ids);
+        $tournament->teams()->syncWithoutDetaching($request->team_ids);
         return redirect()->route('tournaments.teams', $tournament->id);
+    }
+
+    public function removeTeam(Request $request, $tournament_id, $team_id)
+    {
+        $tournament = Tournament::findOrFail($tournament_id);
+        $team = Team::findOrFail($team_id);
+
+        // Eliminar la relación en la tabla pivote
+        $tournament->teams()->detach($team);
+
+        return redirect()->back()->with('success', 'El equipo ha sido eliminado del torneo.');
+    }
+
+    public function matches(Request $request, Tournament $tournament, Team $team)
+    {
+        $matches = $tournament->matches;
+        return view('tournaments.matches', compact('tournament','matches'));
     }
 }

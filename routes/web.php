@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\matchesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\refereesController;
 use App\Http\Controllers\stadiumsController;
@@ -26,6 +27,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('tournaments/{tournament}/teams', [tournamentsController::class, 'teams'])->name('tournaments.teams');
     Route::get('/tournaments/{tournament}/select-teams', [tournamentsController::class,'selectTeams'])->name('tournaments.select-teams');
     Route::post('/tournaments/{tournament}/select-teams', [tournamentsController::class,'storeSelectedTeams'])->name('tournaments.store-selected-teams');
+    Route::delete('/tournaments/{tournamentId}/teams/{teamId}', [tournamentsController::class, 'removeTeam'])->name('tournaments.removeTeam');
+    Route::get('tournaments/{tournament}/matches', [tournamentsController::class, 'matches'])->name('tournaments.matches');
 
     Route::resource('teams', teamsController::class);
     Route::get('teams/{team}/templates', [teamsController::class, 'templates'])->name('teams.template');
@@ -38,6 +41,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('stadiums', stadiumsController::class);
 
     Route::resource('referees', refereesController::class);
+
+    Route::resource('matches', matchesController::class);
+    Route::get('tournaments/{tournament}/matches/create', [matchesController::class, 'created'])->name('matches.created');
+
 
 
 });

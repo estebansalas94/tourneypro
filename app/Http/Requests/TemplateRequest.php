@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RefereeRequest extends FormRequest
+class TemplateRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -16,9 +16,10 @@ class RefereeRequest extends FormRequest
         $rules = [
             'name' => 'required|min:3',
             'last_name' => 'required',
-            'referee_type' => 'required',
-            'nationality' => 'required',
-            'description' => 'required|max:500',
+            'dorsal' => 'required|integer',
+            'position' => 'required',
+            'nationality' => 'required|alpha',
+            'birth_date_at' => 'required|date',
         ];
 
         if ($this->isMethod('post')) {

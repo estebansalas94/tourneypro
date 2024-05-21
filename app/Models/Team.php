@@ -23,7 +23,7 @@ class Team extends Model
 
     public function templates():HasMany
     {
-        return $this->hasMany(Template::class);
+        return $this->hasMany(Template::class)->orderBy('name', 'asc');
     }
 
     public function stadium()

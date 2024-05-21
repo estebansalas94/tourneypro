@@ -4,7 +4,7 @@
             {{ __('Create Team') }}
         </h2>
         <div class="mb-4 p-0">
-            <a href="{{ route('teams.index') }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Teams </a>
+            <a href="{{ route('teams.index') }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Teams Return </a>
         </div>
     </x-slot>
     <div class="py-12">
@@ -35,7 +35,7 @@
                             @enderror
                         </div>
                         <div class="mb-4">
-                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="mensaje"> Descriptión <span class="text-red-500">*</span></label>
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="mensaje"> Team Descriptión <span class="text-red-500">*</span></label>
                             <textarea name="description" maxlength="1000" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="mensaje" rows="5" placeholder="14 champions league . . .">{{ old('description') }}</textarea>
                             @error('description')
                                 <div class="flex items-center bg-trasparent text-red-500 text-sm font-bold px-4 py-3" role="alert">

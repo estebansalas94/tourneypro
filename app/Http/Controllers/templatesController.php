@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TemplateRequest;
 use Illuminate\Http\Request;
 use App\Models\Template;
 use App\Models\Team;
@@ -10,9 +11,6 @@ use Illuminate\Support\Facades\Storage;
 
 class templatesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return view('templates.index');
@@ -24,7 +22,7 @@ class templatesController extends Controller
         $team_id = $team;
         return view('templates.create', compact('team_id'));
     }
-    public function store(Request $request)
+    public function store(TemplateRequest $request)
     {
         $templateData = $request->all();
 
@@ -53,7 +51,7 @@ class templatesController extends Controller
         return view('templates.edit', compact('template'));
     }
 
-    public function update(Request $request, Template $template)
+    public function update(TemplateRequest $request, Template $template)
     {
         $data = $request->all();
         if ($image = $request->file('image')) {

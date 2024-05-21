@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TeamRequest extends FormRequest
+class StadiumRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -15,16 +15,17 @@ class TeamRequest extends FormRequest
     {
         $rules = [
             'name' => 'required|min:3',
-            'coach_name' => 'required|min:5',
+            'location' => 'required',
+            'capacity' => 'required|numeric',
             'description' => 'required|max:1000',
         ];
-    
+
         if ($this->isMethod('post')) {
-            $rules['shield'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+            $rules['image'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
         } else {
-            $rules['shield'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+            $rules['image'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
         }
-    
+
         return $rules;
     }
 }

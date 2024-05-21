@@ -5,7 +5,7 @@
         <div class="bg-gray-200 dark:bg-gray-800 h-32 rounded-lg flex items-center justify-center text-gray-500">
             <img src="{{ Storage::url('images/teams/' . $team->shield) }}" alt="Shield Image" class="h-full rounded-lg  ">
         </div>
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ $team->name }}   <a href="{{ route('teams.edit', $team) }}" class="material-symbols-outlined p-2 text-blue-400 transform hover:scale-110">border_color</a></h2>
+        <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight">{{ $team->name }}   <a href="{{ route('teams.edit', $team) }}" class="material-symbols-outlined p-2 text-blue-400 transform hover:scale-110">border_color</a></h2>
         <div class="mb-4 p-0">
             <a href="{{ route('teams.template', $team) }}" class="material-symbols-outlined cursor-pointer bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute top-12 right-2 mr-6 mt-44"> patient_list </a>
             <a href="{{ route('teams.stadium', $team) }}" class="material-symbols-outlined cursor-pointer bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline absolute top-12 right-12 mr-12 mt-44">stadium</a>

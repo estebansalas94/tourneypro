@@ -5,7 +5,7 @@
         <div class="bg-gray-200 dark:bg-gray-800 h-32 rounded-lg flex items-center justify-center text-gray-500">
             <img src="{{ Storage::url('images/teams/' . $team->shield) }}" alt="Tournament Image" class="h-full rounded-lg  ">
         </div>
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ $team->name }}   <a href="{{ route('teams.edit', $team) }}" class="material-symbols-outlined p-2 text-blue-400 transform hover:scale-110">border_color</a></h2>
+        <h2 class="font-semibold text-xl uppercase text-gray-800 dark:text-gray-200 leading-tight">{{ $team->name }}   <a href="{{ route('teams.edit', $team) }}" class="material-symbols-outlined p-2 text-blue-400 transform hover:scale-110">border_color</a></h2>
         <div class="mb-4 p-0">
             <a href="{{ route('templates.created', ['team' => $team->id]) }}" class="material-symbols-outlined cursor-pointer text-blue-500 text-4xl hover:text-white rounded focus:outline-none focus:shadow-outline absolute top-12 right-2 mr-5 mt-44">add_box</a>
         </div>
@@ -49,19 +49,19 @@
                                 <td class="px-4 py-4 ">
                                     <img src="{{  asset('/storage/images/templates').'/'.$template->image }}"alt="Perfil image" width="20%" class="w-14 h-14 object-cover rounded-full">
                                 </td>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="px-6 py-4 font-medium uppercase text-gray-900 whitespace-nowrap dark:text-white">
                                     <a href="#">{{ $template->name }}</a>
                                 </th>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="px-6 py-4 font-medium uppercase text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ $template->last_name }}
                                 </th>
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 uppercase">
                                     {{  $template->dorsal }}
                                 </td>
                                 <td class="px-6 py-4">
                                     {{  $template->position }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 uppercase">
                                     {{  $template->nationality }}
                                 </td>
                                 <td class="px-6 py-4">

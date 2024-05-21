@@ -4,7 +4,7 @@
             {{ __('Create Referees') }}
         </h2>
         <div class="mb-4 p-0">
-            <a href="{{ route('referees.index') }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Referees </a>
+            <a href="{{ route('referees.index') }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Referees Return  </a>
         </div>
     </x-slot>
     <div class="py-12">
@@ -16,7 +16,7 @@
 
                         <div class="flex flex-wrap">
                             <div class="w-full md:w-1/2 px-3">
-                                <label class="text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="nya"> Name </label><span class="text-red-500">*</span>
+                                <label class="text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="nya"> Referee Name </label><span class="text-red-500">*</span>
                                 <input name="name" value="{{ old('name') }}" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="nya" type="text" placeholder="">
                                 @error('name')
                                     <div class="flex items-center bg-trasparent text-red-500 text-sm font-bold px-4 py-3" role="alert">
@@ -54,7 +54,7 @@
                                 @enderror
                             </div>
                             <div class="w-full  px-3">
-                                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" for="dt"> Description <span class="text-red-500">*</span></label>
+                                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" for="dt"> Referee Description <span class="text-red-500">*</span></label>
                                 <textarea name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900  leading-tight focus:outline-none focus:shadow-outline">{{ old('description') }}</textarea>
                                 @error('description')
                                     <div class="flex items-center bg-trasparent text-red-500 text-sm font-bold px-4 py-3" role="alert">

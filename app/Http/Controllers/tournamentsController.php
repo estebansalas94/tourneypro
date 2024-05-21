@@ -86,7 +86,7 @@ class tournamentsController extends Controller
        
         $assignedTeamIds = $tournament->teams->pluck('id')->toArray();
         $query = $request->input('search');
-        $teams = Team::whereNotIn('id', $assignedTeamIds)
+        $teams = Team::whereNotIn('id', $assignedTeamIds)->orderBy('name', 'asc')
         ->when($query, function ($queryBuilder) use ($query) {
             $queryBuilder->where('name', 'LIKE', "%{$query}%");
         })->get();
@@ -100,7 +100,7 @@ class tournamentsController extends Controller
         return redirect()->route('tournaments.teams', $tournament->id);
     }
 
-    public function removeTeam(Request $request, $tournament_id, $team_id)
+    public function removeTeam($tournament_id, $team_id)
     {
         $tournament = Tournament::findOrFail($tournament_id);
         $team = Team::findOrFail($team_id);

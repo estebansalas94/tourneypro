@@ -4,7 +4,7 @@
             {{ __('Edit tournament') }}
         </h2>
         <div class="mb-4 p-0">
-            <a href="{{ route('tournaments.index') }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Return Tournament </a>
+            <a href="{{ route('tournaments.index') }}" class="bg-blue-500 hover:bg-blue-700 active:bg-green-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"> Tournament Return </a>
         </div>
     </x-slot>
     <div class="py-12">
@@ -24,7 +24,7 @@
                             </div>
                         </div>
                         <div class="mb-4">
-                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="mensaje"> Descriptión <span class="text-red-500">*</span></label>
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="mensaje"> Tournament Descriptión <span class="text-red-500">*</span></label>
                             <textarea name="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="mensaje" rows="5" placeholder="Description tournament">{{ old('description',$tournament->description) }}</textarea>
                         </div>
                         <div class="mb-4">

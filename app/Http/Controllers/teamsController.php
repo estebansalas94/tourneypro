@@ -68,7 +68,7 @@ class teamsController extends Controller
         return view('teams.edit',compact('team'));
     }
 
-    public function update(Request $request, Team $team)
+    public function update(TeamRequest $request, Team $team)
     {
         $data = $request->all();
         if ($shield = $request->file('shield')) {

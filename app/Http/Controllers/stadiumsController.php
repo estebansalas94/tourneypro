@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StadiumRequest;
 use App\Models\Stadium;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +20,7 @@ class stadiumsController extends Controller
         return view('stadiums.create', compact('team_id'));
     }
 
-    public function store(Request $request)
+    public function store(StadiumRequest $request)
     {
         $stadiumData = $request->all();
 
@@ -45,7 +46,7 @@ class stadiumsController extends Controller
         return view('stadiums.edit', compact('stadium'));
     }
 
-    public function update(Request $request, Stadium $stadium)
+    public function update(StadiumRequest $request, Stadium $stadium)
     {
         $stadiumData = $request->all();
         if ($image = $request->file('image'))

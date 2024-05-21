@@ -45,19 +45,19 @@
                                 <td class="px-4 py-4 ">
                                     <img src="{{  asset('storage/images/referees').'/'.$referee->image }}" alt="Perfil image" width="20%" class="w-14 h-14 object-cover rounded-full">
                                 </td>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="px-6 py-4 font-medium uppercase text-gray-900 whitespace-nowrap dark:text-white">
                                     <a href="#">{{ $referee->name }}</a>
                                 </th>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="px-6 py-4 font-medium uppercase text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ $referee->last_name }}
                                 </th>
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 uppercase">
                                     {{  $referee->referee_type }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 uppercase">
                                     {{  $referee->nationality }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 uppercase">
                                     {{  $referee->description }}
                                 </td>
                                 <td class="px-3 py-2">

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MatchRequest;
 use App\Models\Game;
 use App\Models\Referee;
-use App\Models\Team;
 use App\Models\Tournament;
 use Illuminate\Http\Request;
 
@@ -15,12 +15,9 @@ class matchesController extends Controller
         //
     }
 
-    public function create(/*Tournament $tournament*/)
+    public function create()
     {
-        // $teams = $tournament->teams;
-        // dd($teams);
-        // $referee = Referee::all();
-        // return view('matches.create', compact('tournament','teams','referee'));
+        
     }
 
     public function created(Tournament $tournament)
@@ -30,38 +27,41 @@ class matchesController extends Controller
         return view('matches.create', compact('tournament','teams','referee'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Tournament $tournament)
     {
-        
+        $refereeIds = $request->input('referee_id');
+        $match = Game::create([
+            'date_at' => $request->date_at,
+            'description' => $request->description,
+            'goal_local' => $request->goal_local,
+            'goal_visitor' => $request->goal_visitor,
+            'team_local_id' => $request->team_local_id,
+            'team_visitor_id' => $request->team_visitor_id,
+            'stadium_id' => $request->stadium_id,
+            'tournament_id' => $request->tournament_id
+        ]);
+        $match->referees()->attach($refereeIds);
+
+      
+
+        return redirect()->route('tournaments.matches', ['tournament' => $match->tournament_id]);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

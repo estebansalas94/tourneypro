@@ -108,6 +108,7 @@ return new class extends Migration {
 
         Schema::create('matches_has_referees', function (Blueprint $table) {
             $table->id();
+            $table->string('role');
             $table->foreignId('match_id')
                 ->nullable()
                 ->constrained('matches')

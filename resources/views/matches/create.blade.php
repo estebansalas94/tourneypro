@@ -20,73 +20,134 @@
 
                         <div class="flex flex-wrap">
                             <div  class="w-full md:w-1/2 px-3">
-                                <label for="team_local_id" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" >Equipo Local</label>
-                                <select name="team_local_id" id="team_local_id" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" required>
+                                <label for="team_local_id" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" >Home Team <span class="text-red-500">*</span></label>
+                                <select name="team_local_id" id="team_local_id" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline">
                                     <option value="" data-stadium_id="" data-stadium_name="">--select team--</option>
                                     @foreach($teams as $team)
                                         {{-- {{ var_dump($team) }} --}}
-                                        <option value="{{ $team->id }}" data-stadium_id="{{ $team->stadium->id }}" data-stadium_name="{{ $team->stadium->name }}">{{ $team->name . " " . $team->coach_name}} </option>
-                                        
+                                        <option value="{{ $team->id }}" {{ old('team_local_id') == $team->id ? 'selected' : '' }} data-stadium_id="{{ $team->stadium->id }}" data-stadium_name="{{ $team->stadium->name }}">{{ $team->name . " " . $team->coach_name}} </option>
                                     @endforeach
-                                </select>                                                              
+                                </select>
+                                @error('team_local_id')
+                                    <div class="flex items-center bg-trasparent text-red-500 text-sm font-bold px-4 py-3" role="alert">
+                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+                                        <span>{{ $message }}</span>
+                                    </div>
+                                @enderror                                                              
                             </div>
-                            <div  class="w-full md:w-1/2 px-3">
-                                <label for="team_visitor_id" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" >Equipo Visitante</label>
-                                <select name="team_visitor_id" id="team_visitor_id" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" required>
+                            <div class="w-full md:w-1/2 px-3">
+                                <label for="team_visitor_id" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4">Away Team <span class="text-red-500">*</span></label>
+                                <select name="team_visitor_id" id="team_visitor_id" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" disabled>
                                     <option value="" data-stadium_id="" data-stadium_name="">--select team--</option>
                                     @foreach($teams as $team)
-                                        <option value="{{ $team->id }}">{{ $team->name . " " . $team->coach_name}}</option>
+                                        <option value="{{ $team->id }}" {{ old('team_visitor_id') == $team->id ? 'selected' : '' }}>{{ $team->name . " " . $team->coach_name}}</option>
                                     @endforeach
                                 </select>
+                                @error('team_visitor_id')
+                                    <div class="flex items-center bg-transparent text-red-500 text-sm font-bold px-4 py-3" role="alert">
+                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+                                        <span>{{ $message }}</span>
+                                    </div>
+                                @enderror
                             </div>
                             <div class="w-full px-3">
-                                <label for="stadium" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4">Stadium</label>
-                                <input type="hidden" name="stadium_id" id="stadium_id">
-                                <input type="text" id="stadium_name" readonly class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline">
+                                <label for="stadium" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4">Stadium <span class="text-red-500">*</span></label>
+                                @php
+                                    $oldStadiumId = old('stadium_id');
+                                    $oldStadiumName = $team->stadium->firstWhere('id', $oldStadiumId)->name ?? '';
+                                @endphp
+                                <input type="hidden" value="{{ old('stadium_id') }}" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" name="stadium_id" id="stadium_id">
+                                <input type="text" value="{{ $oldStadiumName}}" id="stadium_name" readonly class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline">
+                                @error('stadium_id')
+                                    <div class="flex items-center bg-trasparent text-red-500 text-sm font-bold px-4 py-3" role="alert">
+                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+                                        <span>{{ $message }}</span>
+                                    </div>
+                                @enderror
                             </div>                            
                             <div  class="w-full px-3">
-                                <label for="date_at" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" >Fecha</label>
-                                <input type="datetime-local" name="date_at" id="date_at" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" placeholder="Fecha" required>
+                                <label for="date_at" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" >Match Date <span class="text-red-500">*</span></label>
+                                <input type="datetime-local" value="{{ old('date_at') }}" name="date_at" id="date_at" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline">
+                                @error('date_at')
+                                    <div class="flex items-center bg-trasparent text-red-500 text-sm font-bold px-4 py-3" role="alert">
+                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+                                        <span>{{ $message }}</span>
+                                    </div>
+                                @enderror
                             </div>
                             <div  class="w-full md:w-1/2 px-3">
-                                <label for="description" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" >Main Referee</label>
-                                <select name="description" id="description" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" required>
-                                    <option>--select referee--</option>
+                                <label for="description" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" >Main Referee <span class="text-red-500">*</span></label>
+                                <select name="referee_id[]" id="description" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" required>
+                                    <option value="">--select referee--</option>
                                     @foreach($referee->where('referee_type','main referee') as $ref)
-                                        <option value="{{ $ref->id }}">{{ $ref->name . " " . $ref->last_name }}</option>
+                                         <option value="{{ $ref->id }}" {{--{{ in_array($ref->id, (array) old('referee_id')) ? 'selected' : '' }}--}}>{{ $ref->name . " " . $ref->last_name }}</option> 
                                     @endforeach
                                 </select>
+                                @error('referee_id')
+                                    <div class="flex items-center bg-trasparent text-red-500 text-sm font-bold px-4 py-3" role="alert">
+                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+                                        <span>{{ $message }}</span>
+                                    </div>
+                                @enderror
                             </div>
                             <div class="w-full md:w-1/2 px-3">
-                                <label for="description" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4">Assistant Referee</label>
-                                <select name="description" id="assistantReferee" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" required>
-                                    <option>--select referee--</option>
+                                <label for="description" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4">Assistant Referee <span class="text-red-500">*</span></label>
+                                <select name="referee_id[]" id="assistantReferee" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" required>
+                                    <option value="">--select referee--</option>
                                     @foreach($referee->where('referee_type','assistant referee') as $ref)
-                                        <option value="{{ $ref->id }}">{{ $ref->name . " " . $ref->last_name }}</option>
+                                        <option value="{{ $ref->id }}" {{--{{ in_array($ref->id, (array) old('referee_id')) ? 'selected' : '' }}--}}>{{ $ref->name . " " . $ref->last_name }}</option>                                    
                                     @endforeach
                                 </select>
+                                @error('referee_id')
+                                    <div class="flex items-center bg-trasparent text-red-500 text-sm font-bold px-4 py-3" role="alert">
+                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+                                        <span>{{ $message }}</span>
+                                    </div>
+                                @enderror
                             </div>
                             <div class="w-full md:w-1/2 px-3">
-                                <label for="description" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4">Assistant Referee</label>
-                                <select name="description" id="assistantReferee2" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" required>
-                                    <option>--select referee--</option>
+                                <label for="description" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4">Assistant Referee <span class="text-red-500">*</span></label>
+                                <select name="referee_id[]" id="assistantReferee2" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" required>
+                                    <option value="">--select referee--</option>
                                     @foreach($referee->where('referee_type','assistant referee') as $ref)
-                                        <option value="{{ $ref->id }}">{{ $ref->name . " " . $ref->last_name }}</option>
+                                        <option value="{{ $ref->id }}" {{--{{ in_array($ref->id, (array) old('referee_id')) ? 'selected' : '' }}--}}>{{ $ref->name . " " . $ref->last_name }}</option>                                    
                                     @endforeach
                                 </select>
+                                @error('referee_id')
+                                    <div class="flex items-center bg-trasparent text-red-500 text-sm font-bold px-4 py-3" role="alert">
+                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+                                        <span>{{ $message }}</span>
+                                    </div>
+                                @enderror
                             </div>                           
                             <div  class="w-full md:w-1/2 px-3">
-                                <label for="description" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" >Fourth Referee</label>
-                                <select name="description" id="description" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" required>
-                                    <option>--select referee--</option>
+                                <label for="description" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" >Fourth Referee <span class="text-red-500">*</span></label>
+                                <select name="referee_id[]" id="description" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline" required>
+                                    <option value="">--select referee--</option>
                                     @foreach($referee->where('referee_type','fourth referee') as $ref)
-                                        <option value="{{ $ref->id }}">{{ $ref->name . " " . $ref->last_name }}</option>
+                                        <option value="{{ $ref->id }}" {{--{{ in_array($ref->id, (array) old('referee_id')) ? 'selected' : '' }}--}}>{{ $ref->name . " " . $ref->last_name }}</option>                                    
                                     @endforeach
                                 </select>
+                                @error('referee_id')
+                                    <div class="flex items-center bg-trasparent text-red-500 text-sm font-bold px-4 py-3" role="alert">
+                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+                                        <span>{{ $message }}</span>
+                                    </div>
+                                @enderror
+                            </div>
+                            <div  class="w-full px-3">
+                                <label for="description" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" >Description</label>
+                                <textarea name="description" id="description" class="block uppercase tracking-wide appearance-none w-full shadow border rounded py-2 px-3 text-gray-700 dark:text-white bg-gray-900 leading-tight focus:outline-none focus:shadow-outline"></textarea>
                             </div>
                             <input value="{{ old('id',$tournament->id) }}" type="hidden" name="tournament_id">
+                            @error('tournament_id')
+                                    <div class="flex items-center bg-trasparent text-red-500 text-sm font-bold px-4 py-3" role="alert">
+                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+                                        <span>{{ $message }}</span>
+                                    </div>
+                                @enderror
                             <div class="flex items-center justify-between">
-                                <button type="submit" class="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Guardar</button>
+                                <button type="submit" class="button px-6 mx-3 mt-6">Save</button>                            
                             </div>
                         </div>
                     </form>
@@ -97,45 +158,40 @@
 </x-app-layout>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!--script para mostrar el id y el name del estadio del equipo que esta en el select local-team-->
 <script>
     $(document).ready(function() {
         $('#team_local_id').change(function() {
             var selectedTeam = $(this).find('option:selected');
             var stadiumId = selectedTeam.data('stadium_id');
             var stadiumName = selectedTeam.data('stadium_name');
-    
+        
             $('#stadium_id').val(stadiumId);
             $('#stadium_name').val(stadiumName);
-        });
- });
- </script>
 
- <!--script para que al seleccionar un team local no vuelva a mostrarse en el siguiente select team-->
-<script>
-    let selectedTeamIds = [];
-    $(document).ready(function() {
-        $('#team_local_id').change(function() {
+            // Filtrar opciones del select de equipo visitante
             let selectedTeamId = $(this).val();
-            selectedTeamIds.push(selectedTeamId);
             $('#team_visitor_id option').show();
             $('#team_visitor_id option[value="' + selectedTeamId + '"]').hide();
+
+            // Habilitar el select de equipo visitante
+            $('#team_visitor_id').prop('disabled', false);
         });
 
-        // $('#team_visitor_id').change(function() {
-        //     let selectedTeamId = $(this).val();
-        //     selectedTeamIds.push(selectedTeamId);
-        //     $('#team_local_id option').show();
-        //     $('#team_local_id option[value="' + selectedTeamId + '"]').hide();
-        // });
-    });
-</script>
+        // Mantener habilitado el select de equipo visitante una vez seleccionado un equipo
+        $('#team_visitor_id').change(function() {
+            if ($(this).val() !== '') {
+                $(this).prop('disabled', false);
+            }
+        });
 
-<!--script para que al seleccionar un arbitro asistente no vuelva a mostrarse en el siguiente select-->
-<script>
-   let selectedRefereeIds = [];
-    $(document).ready(function() {
+        // Inicializar el select de equipo visitante al cargar la página
+        let initialTeamVisitorValue = $('#team_visitor_id').val();
+        if (initialTeamVisitorValue !== '') {
+            $('#team_visitor_id').prop('disabled', false);
+        }
+
+        // Script para que al seleccionar un árbitro asistente no vuelva a mostrarse en el siguiente select
+        let selectedRefereeIds = [];
         $('#assistantReferee').change(function() {
             let selectedRefereeId = $(this).val();
             selectedRefereeIds.push(selectedRefereeId);
@@ -151,6 +207,7 @@
         });
     });
 </script>
+
 
 
 

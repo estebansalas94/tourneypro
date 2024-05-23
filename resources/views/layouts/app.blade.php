@@ -13,11 +13,11 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,200" />
         <link rel="stylesheet" href="{{ asset('css/alertify.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/checkbox.css') }}">
-        
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="{{ asset('js/alertify.min.js') }}"></script>
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">

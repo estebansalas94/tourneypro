@@ -47,9 +47,8 @@ class matchesController extends Controller
         return redirect()->route('tournaments.matches', ['tournament' => $match->tournament_id]);
     }
 
-    public function show(string $id)
+    public function show(Game $match)
     {
-        //
     }
 
     public function edit(string $id)

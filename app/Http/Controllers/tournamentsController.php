@@ -113,7 +113,7 @@ class tournamentsController extends Controller
 
     public function matches(Request $request, Tournament $tournament, Team $team)
     {
-        $matches = $tournament->matches;
+        $matches = $tournament->matches()->with(['teamLocal', 'teamVisitor'])->get(); 
         return view('tournaments.matches', compact('tournament','matches'));
     }
 }

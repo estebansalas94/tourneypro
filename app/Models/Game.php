@@ -29,5 +29,14 @@ class Game extends Model
     {
         return $this->belongsToMany(Referee::class, 'matches_has_referees','match_id');
     }
+    public function teamLocal()
+    {
+        return $this->belongsTo(Team::class, 'team_local_id');
+    }
+
+    public function teamVisitor()
+    {
+        return $this->belongsTo(Team::class, 'team_visitor_id');
+    }
     
 }

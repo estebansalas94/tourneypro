@@ -17,22 +17,14 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('stadiums', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 50);
-            $table->string('location', 60);
-            $table->integer('capacity')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
-        });
-
         Schema::create('referees', function (Blueprint $table) {
             $table->id();
             $table->string('name', 40);
             $table->string('last_name', 40);
+            $table->string('referee_type', 35);
             $table->string('nationality', 40);
             $table->string('description')->nullable();
-            $table->text('image');
+            $table->text('image')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -47,14 +39,25 @@ return new class extends Migration {
             $table->timestamps();
         });
 
+        Schema::create('stadiums', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 50);
+            $table->string('location', 60);
+            $table->integer('capacity')->nullable();
+            $table->text('image')->nullable();
+            $table->foreignId('team_id')->constrained('teams');
+            $table->softDeletes();
+            $table->timestamps();
+        });
+
         Schema::create('templates', function (Blueprint $table) {
             $table->id();
             $table->string('name', 30);
             $table->string('last_name', 45);
-            $table->integer('dorsal')->nullable();
+            $table->integer('dorsal');
             $table->string('position', 30);
             $table->text('image')->nullable();
-            $table->dateTime('birth_date_at');
+            $table->date('birth_date_at');
             $table->string('nationality', 40);
             $table->foreignId('team_id')->constrained('teams');
             $table->softDeletes();
@@ -77,6 +80,7 @@ return new class extends Migration {
 
             $table->softDeletes();
             $table->timestamps();
+
         });
 
         Schema::create('cards', function (Blueprint $table) {
@@ -104,19 +108,38 @@ return new class extends Migration {
 
         Schema::create('matches_has_referees', function (Blueprint $table) {
             $table->id();
-            $table->string('referee_type', 35);
+            $table->string('role');
+            $table->foreignId('match_id')
+                ->nullable()
+                ->constrained('matches')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
 
-            $table->foreignId('stadium_id')->constrained('templates');
-            $table->foreignId('match_id')->constrained('matches');
-            $table->foreignId('tournament_id')->constrained('tournaments');
+            $table->foreignId('referee_id')
+                ->nullable()
+                ->constrained('referees')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
             $table->softDeletes();
             $table->timestamps();
         });
 
         Schema::create('tournaments_has_teams', function (Blueprint $table){
             $table->id();
-            $table->foreignId('tournament_id')->constrained('tournaments');
-            $table->foreignId('team_id')->constrained('teams');
+            $table->foreignId('tournament_id')
+                ->nullable()
+                ->constrained('tournaments')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
+            $table->foreignId('team_id')
+                ->nullable()
+                ->constrained('teams')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+            
+            $table->unique(['tournament_id', 'team_id']);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -129,13 +152,13 @@ return new class extends Migration {
         Schema::dropIfExists('goals');
         Schema::dropIfExists('cards');
         Schema::dropIfExists('matches');
-        Schema::dropIfExists('players');
-        Schema::dropIfExists('teams');
-
-
-
-        Schema::dropIfExists('referees');
+        Schema::dropIfExists('templates');
         Schema::dropIfExists('stadiums');
+        
+
+
+        Schema::dropIfExists('teams');
+        Schema::dropIfExists('referees');
         Schema::dropIfExists('tournaments');
 
     }

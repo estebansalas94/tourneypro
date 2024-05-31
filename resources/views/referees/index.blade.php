@@ -78,7 +78,8 @@
             </div>
         </div>
     </div>
-</x-app-layout><!--script de confirmar delete con alertifyjs-->
+</x-app-layout>
+<!--script de confirmar delete con alertifyjs-->
 <script>
     function confirmarDelete(id){
         alertify.confirm("This is a confirm dialog.", function (e){

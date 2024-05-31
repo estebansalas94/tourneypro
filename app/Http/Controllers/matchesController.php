@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MatchRequest;
 use App\Models\Game;
 use App\Models\Referee;
+use App\Models\Team;
 use App\Models\Tournament;
 use Illuminate\Http\Request;
+
+use function PHPUnit\Framework\matches;
 
 class matchesController extends Controller
 {
     public function index()
     {
-        //
+        $matches = Game::orderBy('date_at', 'asc')->paginate(6);
+        return view('matches.index', compact('matches'));
     }
 
     public function create()
@@ -41,14 +45,12 @@ class matchesController extends Controller
             'tournament_id' => $request->tournament_id
         ]);
         $match->referees()->attach($refereeIds);
-
-      
-
         return redirect()->route('tournaments.matches', ['tournament' => $match->tournament_id]);
     }
 
     public function show(Game $match)
     {
+        return view('matches.show', compact('match'));
     }
 
     public function edit(string $id)

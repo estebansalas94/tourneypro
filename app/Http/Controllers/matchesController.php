@@ -15,7 +15,9 @@ class matchesController extends Controller
 {
     public function index()
     {
-        $matches = Game::orderBy('date_at', 'asc')->paginate(6);
+        $matches = Game::orderBy('date_at', 'asc')
+                        ->where('status','programado')
+                        ->paginate(6);
         return view('matches.index', compact('matches'));
     }
 
@@ -53,9 +55,9 @@ class matchesController extends Controller
         return view('matches.show', compact('match'));
     }
 
-    public function edit(string $id)
+    public function edit(Game $match)
     {
-        //
+        return view('matches.edit', compact('match'));
     }
 
     public function update(Request $request, string $id)

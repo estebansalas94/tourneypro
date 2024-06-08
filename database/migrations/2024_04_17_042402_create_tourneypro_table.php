@@ -78,6 +78,8 @@ return new class extends Migration {
             $table->foreignId('stadium_id')->constrained('stadiums');
             $table->foreignId('tournament_id')->constrained('tournaments');
 
+            $table->string('status')->default('programado');
+
             $table->softDeletes();
             $table->timestamps();
 

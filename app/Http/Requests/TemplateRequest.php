@@ -18,7 +18,7 @@ class TemplateRequest extends FormRequest
             'last_name' => 'required',
             'dorsal' => 'required|integer',
             'position' => 'required',
-            'nationality' => 'required|alpha',
+            'nationality' => 'required|min:3',
             'birth_date_at' => 'required|date',
         ];
 

@@ -113,7 +113,18 @@ class tournamentsController extends Controller
 
     public function matches(Request $request, Tournament $tournament, Team $team)
     {
-        $matches = $tournament->matches()->with(['teamLocal', 'teamVisitor'])->get(); 
+        $matches = $tournament->matches()
+                              ->where('status', 'programado')
+                              ->with(['teamLocal', 'teamVisitor'])
+                              ->get(); 
         return view('tournaments.matches', compact('tournament','matches'));
+    }
+    public function matchFinished(Request $request, Tournament $tournament, Team $team)
+    {
+        $matches = $tournament->matches()
+                              ->where('status', 'finalizado')
+                              ->with(['teamLocal', 'teamVisitor'])
+                              ->get(); 
+        return view('tournaments.matchesFinished', compact('tournament','matches'));
     }
 }

@@ -29,6 +29,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/tournaments/{tournament}/select-teams', [tournamentsController::class,'storeSelectedTeams'])->name('tournaments.store-selected-teams');
     Route::delete('/tournaments/{tournamentId}/teams/{teamId}', [tournamentsController::class, 'removeTeam'])->name('tournaments.removeTeam');
     Route::get('tournaments/{tournament}/matches', [tournamentsController::class, 'matches'])->name('tournaments.matches');
+    Route::get('tournaments/{tournament}/matchesfinished', [tournamentsController::class, 'matchFinished'])->name('tournaments.match-finished');
+
 
     Route::resource('teams', teamsController::class);
     Route::get('teams/{team}/templates', [teamsController::class, 'templates'])->name('teams.template');

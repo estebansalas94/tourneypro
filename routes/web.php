@@ -45,7 +45,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('referees', refereesController::class);
 
     Route::resource('matches', matchesController::class);
+    Route::get('matchesfinished', [matchesController::class, 'indexFinished'])->name('matches.matchesfinished');
     Route::get('tournaments/{tournament}/matches/create', [matchesController::class, 'created'])->name('matches.created');
+    Route::get('match/{match}/finished', [matchesController::class, 'finished'])->name('matches.finished');
+
 
 
 

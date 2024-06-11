@@ -60,6 +60,7 @@ return new class extends Migration {
             $table->date('birth_date_at');
             $table->string('nationality', 40);
             $table->foreignId('team_id')->constrained('teams');
+            $table->integer('player_goals')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

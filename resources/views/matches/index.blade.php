@@ -1,7 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <img src="{{  asset('storage/img/matches.png') }}" alt="Perfil image" width="10%" class="" style="display: block; margin: 0 auto;">
-    </x-slot>
+        <a href="{{ route('matches.matchesfinished') }}" class="button inline-flex items-center bg-blue-500 text-white px-4 py-2 rounded">
+            Matches Finished <span class="material-symbols-outlined ml-1">check_small</span>
+        </a>
+   </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -16,7 +19,6 @@
                                         <svg class="fill-current text-gray-500 w-3 h-3 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M4 9h16v1H4V9zm0 3h16v1H4v-1zm0 3h16v1H4v-1zM2 5h2V2H2v3zm14 0h2V2h-2v3zm-4 0h2V2h-2v3zM4 6h2V5H4v1zm14 0h2V5h-2v1zm-4 0h2V5h-2v1z"/></svg>
                                         Partido {{ $match->status }}
                                         </p>
-                                        {{-- <div class="text-gray-900 font-bold text-xl mb-2 uppercase">{{ $match->teamLocal->name }} vs {{ $match->teamVisitor->name }}</div> --}}
                                         <p class="text-gray-700 text-base">Fecha y Hora: {{ $match->date_at }}</p>
                                         <p class="text-gray-700 text-base">Estadio: {{ $match->teamLocal->stadium->name }}</p>
                                         <p class="text-gray-700 text-base">Torneo: {{ $match->tournament->name }}</p>
@@ -45,14 +47,14 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <div>
-                    {{ $referees->links() }}
+                    {{ $matches->links() }}
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
-</x-app-layout><!--script de confirmar delete con alertifyjs-->
+</x-app-layout>
 
 
 

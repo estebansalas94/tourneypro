@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MatchRequest;
+use App\Models\Card;
 use App\Models\Game;
+use App\Models\Goal;
 use App\Models\Referee;
 use App\Models\Team;
 use App\Models\Tournament;
@@ -17,7 +19,7 @@ class matchesController extends Controller
     {
         $matches = Game::orderBy('date_at', 'asc')
                         ->where('status','programado')
-                        ->paginate(6);
+                        ->paginate(9);
         return view('matches.index', compact('matches'));
     }
 
@@ -60,14 +62,99 @@ class matchesController extends Controller
         return view('matches.edit', compact('match'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, Game $match)
     {
-        //
+        $match->goal_local = $request->goal_local;
+        $match->goal_visitor = $request->goal_visitor;
+        $match->status = 'finalizado';
+        $match->save();
+        
+        //GUARDAR GOLES
+        foreach ($request->goals_local as $player_id => $goals) {
+            for ($i = 0; $i < $goals; $i++) {
+                Goal::create([
+                    'match_id' => $match->id,
+                    'player_id' => $player_id,
+                    'team_id' => $match->team_local_id,
+                ]);
+            }
+        }
+
+        foreach ($request->goals_visitor as $player_id => $goals) {
+            for ($i = 0; $i < $goals; $i++) {
+                Goal::create([
+                    'match_id' => $match->id,
+                    'player_id' => $player_id,
+                    'team_id' => $match->team_visitor_id,
+                ]);
+            }
+        }
+
+        //GUARDAR TARJETAS
+        foreach ($request->yellow_cards_local as $player_id => $cards) {
+            for ($i = 0; $i < $cards; $i++) {
+                Card::create([
+                    'match_id' => $match->id,
+                    'player_id' => $player_id,
+                    'team_id' => $match->team_local_id,
+                    'color' => 'yellow'
+                ]);
+            }
+        }
+
+        foreach ($request->yellow_cards_visitor as $player_id => $cards) {
+            for ($i = 0; $i < $cards; $i++) {
+                Card::create([
+                    'match_id' => $match->id,
+                    'player_id' => $player_id,
+                    'team_id' => $match->team_visitor_id,
+                    'color' => 'yellow'
+                ]);
+            }
+        }
+
+        foreach ($request->red_cards_local as $player_id => $cards) {
+            for ($i = 0; $i < $cards; $i++) {
+                Card::create([
+                    'match_id' => $match->id,
+                    'player_id' => $player_id,
+                    'team_id' => $match->team_local_id,
+                    'color' => 'red'
+                ]);
+            }
+        }
+
+        foreach ($request->red_cards_visitor as $player_id => $cards) {
+            for ($i = 0; $i < $cards; $i++) {
+                Card::create([
+                    'match_id' => $match->id,
+                    'player_id' => $player_id,
+                    'team_id' => $match->team_visitor_id,
+                    'color' => 'red'
+                ]);
+            }
+        }
+
+        return redirect()->route('matches.finished', $match->id)->with('success','Partido actualizado exitosamente');
     }
 
-    public function destroy(string $id)
+    public function finished(Game $match)
     {
-        //
+        return view('matches.finished', compact('match'));
     }
+
+    public function indexFinished()
+    {
+        $matches = Game::orderBy('date_at', 'asc')->where('status', 'finalizado')->paginate(9);
+        return view('matches.indexFinished', compact('matches'));
+    }
+
+    public function destroy(Game $match)
+    {
+        $match->delete();
+        return redirect()->route('matches.matchesfinished');
+    }
+
+
     
 }

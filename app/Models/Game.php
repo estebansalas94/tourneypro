@@ -38,5 +38,15 @@ class Game extends Model
     {
         return $this->belongsTo(Team::class, 'team_visitor_id');
     }
+
+    public function goals()
+    {
+        return $this->hasMany(Goal::class, 'match_id');
+    }
+
+    public function cards()
+    {
+        return $this->hasMany(Card::class, 'match_id');
+    }
     
 }

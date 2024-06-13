@@ -29,6 +29,14 @@ class Game extends Model
     {
         return $this->belongsToMany(Referee::class, 'matches_has_referees','match_id');
     }
+
+    public function mainReferee()
+    {
+        return $this->belongsToMany(Referee::class, 'matches_has_referees', 'match_id', 'referee_id')
+                    ->where('referee_type', 'main referee')
+                    ->first();
+    }
+
     public function teamLocal()
     {
         return $this->belongsTo(Team::class, 'team_local_id');
@@ -48,5 +56,7 @@ class Game extends Model
     {
         return $this->hasMany(Card::class, 'match_id');
     }
+
+    
     
 }

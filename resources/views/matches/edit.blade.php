@@ -13,8 +13,9 @@
                         <p class="text-gray-600 flex items-center justify-center text-center">
                             Partido {{ $match->status }}
                         </p>
-                        <p class="material-symbols-outlined text-gray-600 text-xs flex py-1 items-center justify-center text-center">calendar_month {{ $match->date_at }}</p>
-                        <p class="material-symbols-outlined text-gray-600 text-xs flex py-1 items-center justify-center text-center">stadium {{ $match->teamLocal->stadium->name }}</p>
+                        <p class="text-gray-600 flex py-1 items-center justify-center text-center"><span class="material-symbols-outlined text-sm mt-0 m-1 text-yellow-400">calendar_month</span> {{ $match->date_at }}hr</p>
+                        <a href="#" class="text-gray-600 flex py-1 items-center justify-center text-center uppercase"><span class="material-symbols-outlined text-sm m-1 mt-0 text-blue-500">stadium</span> {{ $match->teamLocal->stadium->name }}</a>
+                        <p class="text-gray-600 flex py-1 items-center justify-center text-center uppercase"><span class="material-symbols-outlined text-sm m-1 mt-0 text-green-500">sports</span>  {{ $mainReferee ? $mainReferee->name : 'No asignado' }} {{ $mainReferee->last_name }}</p>
                         <div class="mb-4 p-2 text-center"><a href="{{ route('tournaments.show', $match->tournament->id) }}">{{ $match->tournament->name }}</a></div>
                         <div class="flex items-center justify-between py-12 px-16">
                             <div class="flex flex-col items-center">
@@ -43,7 +44,7 @@
                                                     <td class="border border-gray-200 px-2">{{ $template->dorsal }}</td>
                                                     <td class="border border-gray-200 px-2 py-2">{{ $template->name }} {{ $template->last_name }}</td>
                                                     <td class="border border-gray-200 px-2 py-2">
-                                                        <input type="text" name="goals_local[{{ $template->id }}]" class="w-10 border text-black border-gray-300 rounded px-2 py-1" onkeypress='return validaNumericos(event)' placeholder="0" />
+                                                        <input type="text" name="goals_local[{{ $template->id }}]" class="w-10 border text-black border-gray-300 rounded px-2 py-1 goals-local" onkeypress='return validaNumericos(event)' placeholder="0" />
                                                     </td>
                                                     <td class="border border-gray-200 px-2 py-2">
                                                         <input type="text" name="yellow_cards_local[{{ $template->id }}]" class="w-10 border text-black border-gray-300 rounded px-2 py-1" onkeypress='return validaNumericos(event)' placeholder="0" />
@@ -58,13 +59,13 @@
                                 </div>
                             </div>
                             <div class="mb-16 ">
-                                <input name="goal_local" type="text" class="rounded-lg text-xl w-12 h-12 bg-gray-900 text-white text-center mb-16" onkeypress='return validaNumericos(event)'>
+                                <input name="goal_local" id="goal_local" type="text" class="rounded-lg text-xl w-12 h-12 bg-gray-900 text-white text-center mb-16" onkeypress='return validaNumericos(event)'>
                             </div>
                             <div class="flex flex-col items-center text-center mx-14 mb-14 text-gray-600 font-bold">
                                 <div class="text-4xl mb-14 text-white">VS</div>
                             </div>
                             <div class="mb-16">
-                                <input name="goal_visitor" type="text" class="rounded-lg w-12 h-12 text-xl bg-gray-900 text-white text-center mb-16"  onkeypress='return validaNumericos(event)'>
+                                <input name="goal_visitor" id="goal_visitor" type="text" class="rounded-lg w-12 h-12 text-xl bg-gray-900 text-white text-center mb-16"  onkeypress='return validaNumericos(event)'>
                             </div>
                             <div class="flex flex-col items-center">
                                 <a href="{{ route('teams.show',$match->teamVisitor) }}">
@@ -92,7 +93,7 @@
                                                     <td class="border border-gray-200 px-2">{{ $template->dorsal }}</td>
                                                     <td class="border border-gray-200 px-4 py-2">{{ $template->name }} {{ $template->last_name }}</td>
                                                     <td class="border border-gray-200 px-2 py-2">
-                                                        <input type="text" name="goals_visitor[{{ $template->id }}]" class="w-10 border text-black border-gray-300 rounded px-2 py-1" onkeypress='return validaNumericos(event)' placeholder="0" />
+                                                        <input type="text" name="goals_visitor[{{ $template->id }}]" class="w-10 border text-black border-gray-300 rounded px-2 py-1 goals-visitor" onkeypress='return validaNumericos(event)' placeholder="0" />
                                                     </td>
                                                     <td class="border border-gray-200 px-2 py-2">
                                                         <input type="text" name="yellow_cards_visitor[{{ $template->id }}]" class="w-10 border text-black border-gray-300 rounded px-2 py-1" onkeypress='return validaNumericos(event)' placeholder="0" />
@@ -123,4 +124,39 @@
         }
         return false;        
     }
+
+     // Función para sumar goles de un equipo
+     function sumarGoles(selector) {
+        let sum = 0;
+        document.querySelectorAll(selector).forEach(function(input) {
+            sum += parseInt(input.value) || 0;
+        });
+        return sum;
+    }
+
+    // Validar goles de jugadores del equipo local
+    document.querySelectorAll('.goals-local').forEach(function(input) {
+        input.addEventListener('input', function() {
+            let totalGoals = parseInt(document.getElementById('goal_local').value) || 0;
+            let sumGoals = sumarGoles('.goals-local');
+
+            if (sumGoals > totalGoals) {
+                alert('La suma de los goles asignados a los jugadores no puede superar el total de goles del equipo local.');
+                input.value = 0;
+            }
+        });
+    });
+
+    // Validar goles de jugadores del equipo visitante
+    document.querySelectorAll('.goals-visitor').forEach(function(input) {
+        input.addEventListener('input', function() {
+            let totalGoals = parseInt(document.getElementById('goal_visitor').value) || 0;
+            let sumGoals = sumarGoles('.goals-visitor');
+
+            if (sumGoals > totalGoals) {
+                alert('La suma de los goles asignados a los jugadores no puede superar el total de goles del equipo visitante.');
+                input.value = 0;
+            }
+        });
+    });
 </script>

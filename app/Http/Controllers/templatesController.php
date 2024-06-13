@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TemplateRequest;
 use Illuminate\Http\Request;
 use App\Models\Template;
+use App\Models\Game;
 use App\Models\Team;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
+
 
 
 class templatesController extends Controller
@@ -40,9 +43,16 @@ class templatesController extends Controller
     }
 
 
-    public function show(string $id)
+    public function show(Template $template, Game $match)
     {
-        //
+        $birthdate = $template->birth_date_at;
+        $age = Carbon::parse($birthdate)->age;
+        $ages = [$age];
+        
+        $team = $template->team;
+        $matches = $team->tournaments->flatMap->matches->sortByDesc('date_at')->where('status','finalizado');
+        
+        return view('templates.show', compact('template', 'team','matches','ages'));
     }
 
     

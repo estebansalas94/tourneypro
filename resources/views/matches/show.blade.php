@@ -9,8 +9,9 @@
                     <p class="text-gray-600 flex items-center justify-center text-center uppercase">
                         Partido {{ $match->status }}
                     </p>
-                    <p class="material-symbols-outlined text-gray-600 text-xs flex py-1 items-center justify-center text-center">calendar_month {{ $match->date_at }}</p>
-                    <a href="#" class="material-symbols-outlined text-gray-600 text-xs flex py-1 items-center justify-center text-center">stadium {{ $match->teamLocal->stadium->name }}</a>
+                    <p class="text-gray-600 flex py-1 items-center justify-center text-center"><span class="material-symbols-outlined text-sm mt-0 m-1 text-yellow-400">calendar_month</span> {{ $match->date_at }}hr</p>
+                    <a href="#" class="text-gray-600 flex py-1 items-center justify-center text-center uppercase"><span class="material-symbols-outlined text-sm m-1 mt-0 text-blue-500">stadium</span> {{ $match->teamLocal->stadium->name }}</a>
+                    <p class="text-gray-600 flex py-1 items-center justify-center text-center uppercase"><span class="material-symbols-outlined text-sm m-1 mt-0 text-green-500">sports</span>  {{ $mainReferee ? $mainReferee->name : 'No asignado' }} {{ $mainReferee->last_name }}</p>
                     <div class="mb-4 p-2 text-center"><a href="{{ route('tournaments.show', $match->tournament->id) }}" >{{ $match->tournament->name }}</a></div>
                     <div class="flex items-center justify-between py-12 px-16">
                         
@@ -52,18 +53,13 @@
                                     </ul>
                                 </div>
                             </div>                            
-                        </a> 
-                </div>
-                
+                        </a>
+                    </div> 
+                </div>   
             </div>
-            {{-- <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <div>
-                    {{ $referees->links() }}
-                </div>
-            </div> --}}
         </div>
     </div>
-</x-app-layout><!--script de confirmar delete con alertifyjs-->
+</x-app-layout>
 
 
 

@@ -9,6 +9,7 @@ use App\Models\Goal;
 use App\Models\Referee;
 use App\Models\Team;
 use App\Models\Tournament;
+use Hamcrest\Core\AllOf;
 use Illuminate\Http\Request;
 
 use function PHPUnit\Framework\matches;
@@ -54,13 +55,14 @@ class matchesController extends Controller
 
     public function show(Game $match)
     {
-        return view('matches.show', compact('match'));
+        $mainReferee = $match->mainReferee();
+        return view('matches.show', compact('match','mainReferee'));
     }
 
     public function edit(Game $match)
     {
-        return view('matches.edit', compact('match'));
-    }
+        $mainReferee = $match->mainReferee();
+        return view('matches.edit', compact('match','mainReferee'));    }
 
     public function update(Request $request, Game $match)
     {
@@ -140,7 +142,8 @@ class matchesController extends Controller
 
     public function finished(Game $match)
     {
-        return view('matches.finished', compact('match'));
+        $mainReferee = $match->mainReferee();
+        return view('matches.finished', compact('match','mainReferee'));
     }
 
     public function indexFinished()

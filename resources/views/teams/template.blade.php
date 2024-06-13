@@ -50,7 +50,7 @@
                                     <img src="{{  asset('/storage/images/templates').'/'.$template->image }}"alt="Perfil image" width="20%" class="w-14 h-14 object-cover rounded-full">
                                 </td>
                                 <th scope="row" class="px-6 py-4 font-medium uppercase text-gray-900 whitespace-nowrap dark:text-white">
-                                    <a href="#">{{ $template->name }}</a>
+                                    <a href="{{ route('templates.show', $template->id) }}">{{ $template->name }}</a>
                                 </th>
                                 <th scope="row" class="px-6 py-4 font-medium uppercase text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ $template->last_name }}

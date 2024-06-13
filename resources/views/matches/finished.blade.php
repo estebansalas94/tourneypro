@@ -10,8 +10,9 @@
                     <p class="text-gray-600 flex items-center justify-center text-center uppercase">
                         Partido {{ $match->status }}
                     </p>
-                    <p class="material-symbols-outlined text-gray-600 text-xs flex py-1 items-center justify-center text-center">calendar_month {{ $match->date_at }}</p>
-                    <a href="#" class="material-symbols-outlined text-gray-600 text-xs flex py-1 items-center justify-center text-center">stadium {{ $match->teamLocal->stadium->name }}</a>
+                    <p class="text-gray-600 flex py-1 items-center justify-center text-center"><span class="material-symbols-outlined text-sm mt-0 m-1 text-yellow-400">calendar_month</span> {{ $match->date_at }}hr</p>
+                    <a href="#" class="text-gray-600 flex py-1 items-center justify-center text-center uppercase"><span class="material-symbols-outlined text-sm m-1 mt-0 text-blue-500">stadium</span> {{ $match->teamLocal->stadium->name }}</a>
+                    <p class="text-gray-600 flex py-1 items-center justify-center text-center uppercase"><span class="material-symbols-outlined text-sm m-1 mt-0 text-green-500">sports</span>  {{ $mainReferee ? $mainReferee->name : 'No asignado' }} {{ $mainReferee->last_name }}</p>
                     <div class="mb-4 p-2 text-center"><a href="{{ route('tournaments.show', $match->tournament->id) }}" >{{ $match->tournament->name }}</a></div>
                     <div class="flex items-center justify-between py-12 px-16">
                             <div class="flex flex-col items-center">
@@ -122,6 +123,28 @@
                             </div>                            
                         </a> 
                 </div>
+                {{-- <table class="min-w-full divide-y divide-gray-200 mt-8">
+                    <thead class="bg-gray-800">
+                        <tr>
+                            <th class="px-6 text-left text-xs font-medium text-gray-200 uppercase tracking-wider">Referee</th>
+                            <th class="px-6  text-left text-xs font-medium text-gray-200 uppercase tracking-wider">Name</th>
+                            <th class="px-6  text-left text-xs font-medium text-gray-200 uppercase tracking-wider">Nationality</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-gray-900 divide-y divide-gray-700">
+                        <tr>
+                            <td class="px-6 whitespace-nowrap">
+                                <span class="material-symbols-outlined text-red-500">sports</span>
+                            </td>
+                            <td class="px-6 whitespace-nowrap text-white">
+                                {{ $mainReferee ? $mainReferee->name : 'No asignado' }} {{ $mainReferee->last_name }}
+                            </td>
+                            <td class="px-6 whitespace-nowrap text-gray-400">
+                                {{ $mainReferee->nationality }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> --}}
             </div>
         </div>
     </div>

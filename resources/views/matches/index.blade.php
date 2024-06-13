@@ -19,7 +19,7 @@
                                         <svg class="fill-current text-gray-500 w-3 h-3 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M4 9h16v1H4V9zm0 3h16v1H4v-1zm0 3h16v1H4v-1zM2 5h2V2H2v3zm14 0h2V2h-2v3zm-4 0h2V2h-2v3zM4 6h2V5H4v1zm14 0h2V5h-2v1zm-4 0h2V5h-2v1z"/></svg>
                                         Partido {{ $match->status }}
                                         </p>
-                                        <p class="text-gray-700 text-base">Fecha y Hora: {{ $match->date_at }}</p>
+                                        <p class="text-gray-700 text-base">Fecha y Hora: {{ $match->date_at }}hr</p>
                                         <p class="text-gray-700 text-base">Estadio: {{ $match->teamLocal->stadium->name }}</p>
                                         <p class="text-gray-700 text-base">Torneo: {{ $match->tournament->name }}</p>
                                     </div>

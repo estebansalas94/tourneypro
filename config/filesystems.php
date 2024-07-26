@@ -36,6 +36,11 @@ return [
             'throw' => false,
         ],
 
+        'laragon' => [
+            'driver' => 'local',
+            'root' => 'C:\laragon\www\TourneyPro\storage\app\public\images\templates',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
